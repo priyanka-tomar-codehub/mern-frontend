@@ -17,7 +17,7 @@ useEffect(() =>{
 
 useEffect(()=>{
 fetchProduct();
-},[]);
+},[fetchProduct]);
 
 const fetchProduct = async ()=>{
 const res = await axios.get(`https://collegemarketplace.onrender.com/api/products/${id}`);
@@ -51,6 +51,7 @@ className="product-image"
 
 <img
 src={`https://collegemarketplace.onrender.com/uploads/${item.image}`}
+alt=""
 width="150"
 />
 

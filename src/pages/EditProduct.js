@@ -11,15 +11,16 @@ function EditProduct(){
     const[category,setCategory] = useState("");
 
     useEffect(()=>{
-        fetchProduct();
-    },[]);
-
-    const fetchProduct =async()=>{
+        const fetchProduct =async()=>{
         const res = await axios.get(`https://collegemarketplace.onrender.com/api/products/${id}`);
         setTitle(res.data.title);
         setPrice(res.data.price);
         setCategory(res.data.category);
     };
+        fetchProduct();
+    },[id]);
+
+    
 
     const handleSubmit=async(e)=>{
         e.preventDefault();
