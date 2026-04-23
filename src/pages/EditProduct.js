@@ -11,11 +11,15 @@ function EditProduct(){
     const[category,setCategory] = useState("");
 
     useEffect(()=>{
-        const fetchProduct =async()=>{
-        const res = await axios.get(`https://collegemarketplace.onrender.com/api/products/${id}`);
-        setTitle(res.data.title);
-        setPrice(res.data.price);
-        setCategory(res.data.category);
+        const fetchProduct = async () => {
+         try {
+            const res = await axios.get(`https://collegemarketplace.onrender.com/api/products/${id}`);
+            setTitle(res.data.title);
+            setPrice(res.data.price);
+            setCategory(res.data.category);
+        } catch (error) {
+            console.error("Error fetching product:", error);
+        }
     };
         fetchProduct();
     },[id]);

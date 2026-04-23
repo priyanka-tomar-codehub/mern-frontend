@@ -8,21 +8,28 @@ const { id } = useParams();
 const [product,setProduct] = useState({});
 const [recommended,setRecommended] = useState([]);
 
+useEffect(() => {
+    const fetchProduct = async () => {
+        try {
+            const res = await axios.get(`https://collegemarketplace.onrender.com/api/products/${id}`);
+            setProduct(res.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    fetchProduct();
+}, [id]);
+
 useEffect(() =>{
+    if (product?._id) {
     axios.get(
         `https://collegemarketplace.onrender.com/api/products/recommend?category=${product.category}&id=${product._id}`
     )
     .then(res=>setRecommended(res.data))
+    .catch(err => console.error(err));
+}
 },[product]);
-
-useEffect(()=>{
-fetchProduct();
-},[fetchProduct]);
-
-const fetchProduct = async ()=>{
-const res = await axios.get(`https://collegemarketplace.onrender.com/api/products/${id}`);
-setProduct(res.data);
-};
 
 return (
 <div>
