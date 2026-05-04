@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Fuse from "fuse.js";
 
 
 function Home() {
@@ -19,10 +20,23 @@ const res = await axios.get("https://collegemarketplace.onrender.com/api/product
 setProducts(res.data);
 };
 
-const filteredProducts = products.filter(product=>
-    product.title.toLowerCase().includes(search.toLowerCase()) &&
-    (category === "" || product.category === category)
-);
+// const filteredProducts = products.filter(product=>
+//     product.title.toLowerCase().includes(search.toLowerCase()) &&
+//     (category === "" || product.category === category)
+// );
+const fuse = new Fuse(products, {
+  keys: ["title", "category"], // kis field pe search karna hai
+  threshold: 0.4, // 0 = exact, 1 = loose (0.3–0.4 best)
+});
+
+const filteredProducts = search
+  ? fuse.search(search).map(result => result.item)
+  : products;
+
+  const finalProducts = filteredProducts.filter((product) => {
+  return category ? product.category === category : true;
+ 
+});
 
 
 return (
@@ -58,7 +72,7 @@ onChange={(e)=>setCategory(e.target.value)}
 
 
 <div className="products-container">
-{filteredProducts.map((product) => (
+{finalProducts.map((product) => (
 <div key={product._id} className = "product-card" >
 
 
