@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function AddProduct() {
 
@@ -13,6 +14,7 @@ const [category,setCategory] = useState("");
 const [image,setImage] = useState(null);
 
 const handleSubmit = async(e)=>{
+    try{
 e.preventDefault();
 
 const token = localStorage.getItem("token");
@@ -35,6 +37,12 @@ Authorization:`Bearer ${token}`
 );
 
 navigate("/");
+toast.success("Product added successfully 🛒");
+    }
+    catch(error)
+    {
+        toast.error("Something went wrong!");
+    }
 };
 
 return (

@@ -1,7 +1,9 @@
 import React from "react";
 import {BrowserRouter as Router, Routes, Route,Navigate} from "react-router-dom"; 
 
-// import Navbar from "./components/Navbar"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -26,6 +28,7 @@ function App() {
          <Route path="/product/:id" element={token ?<ProductDetails />:<Navigate to="/login"/>} />
          <Route path="/my-products" element={token ?<MyProducts />:<Navigate to="/login"/>} />
          <Route  path="/edit/:id" element={<EditProduct/>} />
+          <ToastContainer position="top-right" autoClose={3000} />
          
       </Routes>
       
