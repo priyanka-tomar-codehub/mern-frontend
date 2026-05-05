@@ -28,9 +28,10 @@ function App() {
          <Route path="/product/:id" element={token ?<ProductDetails />:<Navigate to="/login"/>} />
          <Route path="/my-products" element={token ?<MyProducts />:<Navigate to="/login"/>} />
          <Route  path="/edit/:id" element={<EditProduct/>} />
-          <ToastContainer position="top-right" autoClose={3000} />
+          
          
       </Routes>
+      <ToastContainer position="top-right" autoClose={3000} />
       
     </Router>
   );
