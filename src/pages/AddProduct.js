@@ -14,9 +14,8 @@ const [category,setCategory] = useState("");
 const [image,setImage] = useState(null);
 
 const handleSubmit = async(e)=>{
-    try{
 e.preventDefault();
-
+try{
 const token = localStorage.getItem("token");
 
 const formData = new FormData();

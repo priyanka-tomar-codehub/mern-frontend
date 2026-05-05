@@ -8,17 +8,16 @@ function Login() {
 
 const navigate = useNavigate();
 
-const handleLogin = () => {
-    navigate("/");
-};
+// const handleLogin = () => {
+//     navigate("/");
+// };
 
 const [email,setEmail] = useState("");
 const [password,setPassword] = useState("");
 
 const handleSubmit = async (e)=>{
-try{
 e.preventDefault();
-
+try{
 const res = await axios.post(
 "https://collegemarketplace.onrender.com/api/auth/login",
 {
@@ -63,7 +62,7 @@ onChange={(e)=>setPassword(e.target.value)}
 
 <br/><br/>
 
-<button onClick={handleLogin} type="submit"
+<button type="submit"
  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md">Login</button>
 
 <p>New user?<Link to="/register">Register here</Link></p>
