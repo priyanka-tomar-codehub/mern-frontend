@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function ProductDetails() {
 
 const { id } = useParams();
 const [product,setProduct] = useState({});
 const [recommended,setRecommended] = useState([]);
+const [similar, setSimilar] = useState([]);
 
 useEffect(() => {
     const fetchProduct = async () => {
@@ -31,8 +33,21 @@ useEffect(() =>{
 }
 },[product]);
 
+const handleClick = (product) => {
+  localStorage.setItem("lastViewed", JSON.stringify(product));
+};
+const lastViewed = JSON.parse(localStorage.getItem("lastViewed"));
+
+const lastSearch = localStorage.getItem("lastSearch");
+
+const searchBased = recommended.filter((item) =>
+  lastSearch
+    ? item.title.toLowerCase().includes(lastSearch.toLowerCase())
+    : false
+);
 return (
 <div>
+
 
 <img 
 src={`https://collegemarketplace.onrender.com/uploads/${product.image}`} 
@@ -52,23 +67,74 @@ className="product-image"
 
 <h2>Recommended for you</h2>
 
+
 <div className="products-container">
-{recommended.map(item => (
-<div key={item._id}>
+  {recommended.map((item) => (
+    
+    <Link
+      key={item._id}
+      to={`/product/${item._id}`}
+      onClick={() => handleClick(item)}
+      style={{ textDecoration: "none", color: "black" }}
+    >
 
-<img
-src={`https://collegemarketplace.onrender.com/uploads/${item.image}`}
-alt=""
-width="150"
-/>
+      <div className="product-card">
 
-<h4>{item.title}</h4>
-<p>₹{item.price}</p>
+        <img
+          src={`https://collegemarketplace.onrender.com/uploads/${item.image}`}
+          alt=""
+          width="150"
+        />
 
+        <h4>{item.title}</h4>
+
+        <p>₹{item.price}</p>
+
+      </div>
+
+    </Link>
+  ))}
 </div>
-))}
+
+<h2>Based on Your Search</h2>
+
+<div className="products-container">
+  {searchBased.map((item) => (
+    <div key={item._id} className="product-card">
+
+      <img
+        src={`https://collegemarketplace.onrender.com/uploads/${item.image}`}
+        alt=""
+        width="150"
+      />
+
+      <h4>{item.title}</h4>
+
+      <p>₹{item.price}</p>
+
+    </div>
+  ))}
 </div>
 
+{lastViewed && (
+  <>
+    <h2>Recently Viewed</h2>
+
+    <div className="product-card">
+
+      <img
+        src={`https://collegemarketplace.onrender.com/uploads/${lastViewed.image}`}
+        alt=""
+        width="150"
+      />
+
+      <h4>{lastViewed.title}</h4>
+
+      <p>₹{lastViewed.price}</p>
+
+    </div>
+  </>
+)}
 
 </div>
 );

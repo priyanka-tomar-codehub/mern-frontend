@@ -38,6 +38,12 @@ const filteredProducts = search
  
 });
 
+useEffect(() => {
+  if (search.trim() !== "") {
+    localStorage.setItem("lastSearch", search);
+  }
+}, [search]);
+
 
 return (
 <div>
