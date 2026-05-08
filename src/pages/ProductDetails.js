@@ -8,7 +8,7 @@ function ProductDetails() {
 const { id } = useParams();
 const [product,setProduct] = useState({});
 const [recommended,setRecommended] = useState([]);
-const [similar, setSimilar] = useState([]);
+
 
 useEffect(() => {
     const fetchProduct = async () => {
