@@ -59,7 +59,7 @@ onChange={(e)=>setSearch(e.target.value)}
 style={{
 padding:"8px",
 marginBottom:"20px",
-width:"250px"
+width:"100%"
 }}
 />
 
@@ -95,6 +95,13 @@ className="product-image"
 <p>₹ {product.price}</p>
 
 <p>{product.category}</p>
+
+<Link
+  to={`/product/${product._id}`}
+  onClick={() =>
+    localStorage.setItem("lastViewed", JSON.stringify(product))
+  }
+></Link>
 
 
 <Link to={`/product/${product._id}`}>

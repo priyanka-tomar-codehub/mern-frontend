@@ -45,6 +45,10 @@ const searchBased = recommended.filter((item) =>
     ? item.title.toLowerCase().includes(lastSearch.toLowerCase())
     : false
 );
+
+console.log(lastSearch);
+console.log(searchBased);
+
 return (
 <div>
 
@@ -118,7 +122,7 @@ className="product-image"
 
 {lastViewed && (
   <>
-    <h2>Recently Viewed</h2>
+    <h2 className="text-2xl font-bold mt-6">Recently Viewed</h2>
 
     <div className="product-card">
 
