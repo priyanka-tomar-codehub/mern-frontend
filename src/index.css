@@ -14,11 +14,11 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body
-{
-  background-color:papayawhip;
+body {
+  margin: 0;
+  background-color: #f8fafc;
 }
-.products-container{
+.products-container {
 display:grid;
 grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
 gap:20px;
