@@ -23,6 +23,10 @@ function Navbar() {
       }
     };
     fetchProducts();
+
+    // Load initial search term from localStorage
+    const globalSearch = localStorage.getItem("globalSearch") || "";
+    setSearchTerm(globalSearch);
   }, []);
 
   // Fuse.js configuration
@@ -40,9 +44,12 @@ function Navbar() {
       const results = fuse.search(value).map(result => result.item).slice(0, 5); // Limit to 5 results
       setSearchResults(results);
       setShowDropdown(true);
+      // Store search term in localStorage to affect Home page
+      localStorage.setItem("globalSearch", value);
     } else {
       setSearchResults([]);
       setShowDropdown(false);
+      localStorage.removeItem("globalSearch");
     }
   };
 
@@ -50,6 +57,7 @@ function Navbar() {
   const handleResultClick = (product) => {
     setSearchTerm("");
     setShowDropdown(false);
+    localStorage.removeItem("globalSearch");
     localStorage.setItem("lastViewed", JSON.stringify(product));
     navigate(`/product/${product._id}`);
   };
@@ -109,7 +117,7 @@ function Navbar() {
           </div>
         </div>
 
-        <div className="hidden flex-1 items-center justify-center md:flex">
+         <div className="hidden flex-1 items-center justify-center md:flex">
           <div className="w-full max-w-xl relative" ref={searchRef}>
             <label htmlFor="site-search" className="sr-only">Search products</label>
             <div className="relative">
@@ -123,8 +131,23 @@ function Navbar() {
                 value={searchTerm}
                 onChange={handleSearchChange}
                 onFocus={() => searchTerm && setShowDropdown(true)}
-                className="w-full rounded-full border border-slate-200 bg-white py-3 pl-10 pr-4 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                className="w-full rounded-full border border-slate-200 bg-white py-3 pl-10 pr-10 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
               />
+              {searchTerm && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchTerm("");
+                    setShowDropdown(false);
+                    localStorage.removeItem("globalSearch");
+                  }}
+                  className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600"
+                >
+                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
             </div>
 
             {/* Search Results Dropdown */}
@@ -155,6 +178,7 @@ function Navbar() {
             )}
           </div>
         </div>
+       
 
         <div className="flex items-center gap-3 md:gap-4">
           <button
