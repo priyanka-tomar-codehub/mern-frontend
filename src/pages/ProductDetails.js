@@ -100,7 +100,7 @@ className="product-image"
   ))}
 </div>
 
-<h2>Based on Your Search</h2>
+{/* <h2>Based on Your Search</h2> */}
 
 <div className="products-container">
   {searchBased.map((item) => (

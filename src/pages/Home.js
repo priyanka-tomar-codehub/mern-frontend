@@ -66,10 +66,11 @@ return (
           >
             <div className="overflow-hidden rounded-[1.75rem] bg-slate-100">
               <img
-                src={`https://collegemarketplace.onrender.com/${product.image}`}
+                src={`https://collegemarketplace.onrender.com/uploads/${product.image}`}
                 alt={product.title}
                 className="h-52 w-full object-cover"
               />
+              <p>{product.image}</p>
             </div>
 
             <div className="mt-5 space-y-4">
