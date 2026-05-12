@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
 
-const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, [navigate]);
 
-// const handleLogin = () => {
-//     navigate("/");
-// };
-
-const [email,setEmail] = useState("");
-const [password,setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
 const handleSubmit = async (e)=>{
 e.preventDefault();
@@ -38,54 +39,74 @@ catch (err) {
 };
 
 return (
-  <div className="min-h-screen flex items-center justify-center bg-slate-100 px-4 py-10">
-    <div className="w-full max-w-md rounded-[2rem] bg-white p-8 shadow-xl shadow-slate-200">
-      <div className="mb-8 text-center">
-        <h1 className="text-3xl font-extrabold text-slate-900">Welcome back</h1>
-        <p className="mt-2 text-sm text-slate-500">Login to manage your products and marketplace listings.</p>
+  <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-800 px-4 py-12 text-slate-900">
+    <div className="mx-auto flex w-full max-w-6xl overflow-hidden rounded-[2.5rem] bg-white/95 shadow-2xl ring-1 ring-slate-900/10 backdrop-blur-xl lg:flex-row lg:items-stretch">
+      <div className="hidden flex-1 flex-col justify-center gap-6 bg-indigo-950 px-10 py-14 text-white lg:flex">
+        <div className="space-y-4">
+          <span className="inline-flex rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-sky-200">
+            Welcome Back
+          </span>
+          <h1 className="text-4xl font-extrabold tracking-tight">Secure access for your marketplace</h1>
+          <p className="max-w-sm text-sm leading-7 text-slate-200">
+            Log in to manage products, track sales, and publish listings with confidence.
+          </p>
+        </div>
+        <div className="grid gap-3 text-sm text-slate-200">
+          <div className="rounded-3xl bg-white/5 p-4">✓ Fast and secure login</div>
+          <div className="rounded-3xl bg-white/5 p-4">✓ Manage your products easily</div>
+          <div className="rounded-3xl bg-white/5 p-4">✓ Trusted marketplace experience</div>
+        </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <div>
-          <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">Email</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200"
-            autoComplete="username"
-          />
+      <div className="flex-1 px-8 py-10 sm:px-12 sm:py-16">
+        <div className="mb-8 text-center lg:text-left">
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-600">Seller Login</p>
+          <h2 className="mt-4 text-3xl font-extrabold text-slate-900">Welcome back, let's get you signed in</h2>
+          <p className="mt-3 text-sm text-slate-500">Enter your email and password to access your seller dashboard.</p>
         </div>
 
-        <div>
-          <label htmlFor="password" className="mb-2 block text-sm font-medium text-slate-700">Password</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200"
-            autoComplete="current-password"
-          />
-        </div>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">Email</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200"
+              autoComplete="username"
+            />
+          </div>
 
-        <button
-          type="submit"
-          className="w-full rounded-2xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:bg-indigo-700"
-        >
-          Login
-        </button>
-      </form>
+          <div>
+            <label htmlFor="password" className="mb-2 block text-sm font-medium text-slate-700">Password</label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200"
+              autoComplete="current-password"
+            />
+          </div>
 
-      <p className="mt-6 text-center text-sm text-slate-500">
-        New user?{' '}
-        <Link to="/register" className="font-semibold text-indigo-600 hover:text-indigo-700">
-          Register here
-        </Link>
-      </p>
+          <button
+            type="submit"
+            className="w-full rounded-3xl bg-gradient-to-r from-indigo-600 to-sky-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-300 transition hover:scale-[1.01] hover:shadow-xl"
+          >
+            Login
+          </button>
+        </form>
+
+        <p className="mt-6 text-center text-sm text-slate-500">
+          New user?{' '}
+          <Link to="/register" className="font-semibold text-indigo-600 hover:text-indigo-700">
+            Create an account
+          </Link>
+        </p>
+      </div>
     </div>
   </div>
 );

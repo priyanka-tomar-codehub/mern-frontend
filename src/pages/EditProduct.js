@@ -43,40 +43,60 @@ function EditProduct(){
 
         navigate("/my-products");
     };
-return(
-<div>
-<h1>Edit Product</h1>
+return (
+  <div className="min-h-screen flex items-center justify-center bg-slate-100 px-4 py-10">
+    <div className="w-full max-w-lg rounded-[2rem] bg-white p-8 shadow-xl shadow-slate-200">
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-extrabold text-slate-900">Edit Product</h1>
+        <p className="mt-2 text-sm text-slate-500">Update your product details and save the changes.</p>
+      </div>
 
-<form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div>
+          <label htmlFor="title" className="mb-2 block text-sm font-medium text-slate-700">Product Title</label>
+          <input
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200"
+            placeholder="Enter product title"
+          />
+        </div>
 
-<input
-type="text"
-value={title}
-onChange={(e)=>setTitle(e.target.value)}
-/>
+        <div>
+          <label htmlFor="price" className="mb-2 block text-sm font-medium text-slate-700">Price</label>
+          <input
+            id="price"
+            type="number"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200"
+            placeholder="Enter product price"
+          />
+        </div>
 
-<br/><br/>
+        <div>
+          <label htmlFor="category" className="mb-2 block text-sm font-medium text-slate-700">Category</label>
+          <input
+            id="category"
+            type="text"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200"
+            placeholder="Enter product category"
+          />
+        </div>
 
-<input
-type="number"
-value={price}
-onChange={(e)=>setPrice(e.target.value)}
-/>
-
-<br/><br/>
-
-<input
-type="text"
-value={category}
-onChange={(e)=>setCategory(e.target.value)}
-/>
-
-<br/><br/>
-
-<button type="submit">Update</button>
-
-</form>
-</div>
+        <button
+          type="submit"
+          className="w-full rounded-2xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:bg-indigo-700"
+        >
+          Update Product
+        </button>
+      </form>
+    </div>
+  </div>
 );
 }
 

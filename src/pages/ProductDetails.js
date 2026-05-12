@@ -50,113 +50,128 @@ console.log(lastSearch);
 console.log(searchBased);
 
 return (
-<div>
+  <div className="min-h-screen bg-slate-100 px-4 py-10">
+    <div className="mx-auto max-w-7xl space-y-10">
+      <div className="grid gap-8 lg:grid-cols-[1.3fr_0.9fr]">
+        <div className="rounded-[2rem] bg-white p-6 shadow-xl shadow-slate-200">
+          <div className="overflow-hidden rounded-[1.75rem] bg-slate-100">
+            <img
+              src={`https://collegemarketplace.onrender.com/uploads/${product.image}`}
+              alt={product.title || "Product image"}
+              onError={(e) => {
+                e.currentTarget.onerror = null;
+                e.currentTarget.src =
+                  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'%3E%3Crect width='800' height='500' fill='%23e2e8f0'/%3E%3Ctext x='400' y='260' fill='%23717c8a' font-family='Arial,sans-serif' font-size='24' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
+              }}
+              className="h-[400px] w-full object-cover"
+            />
+          </div>
 
+          <div className="mt-8 space-y-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <h1 className="text-3xl font-extrabold text-slate-900">{product.title}</h1>
+                <p className="mt-2 text-sm text-slate-500 uppercase tracking-[0.24em]">{product.category || "Uncategorized"}</p>
+              </div>
+              <span className="inline-flex rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
+                ₹ {product.price}
+              </span>
+            </div>
 
-<img 
-src={`https://collegemarketplace.onrender.com/uploads/${product.image}`} 
-alt=""
-onError={(e) => {
-  e.currentTarget.onerror = null;
-  e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%23e2e8f0'/%3E%3Ctext x='200' y='130' fill='%23717c8a' font-family='Arial,sans-serif' font-size='20' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
-}}
-className="product-image"
-/>
+            <div className="rounded-[1.5rem] bg-slate-50 p-6">
+              <h2 className="mb-3 text-xl font-semibold text-slate-900">Product Description</h2>
+              <p className="text-slate-600">{product.description || "No description available."}</p>
+            </div>
+          </div>
+        </div>
 
-<h2>{product.title}</h2>
+        <div className="space-y-6">
+          {lastViewed && (
+            <div className="rounded-[2rem] bg-white p-6 shadow-xl shadow-slate-200">
+              <h2 className="mb-4 text-xl font-semibold text-slate-900">Recently Viewed</h2>
+              <div className="flex items-start gap-4">
+                <img
+                  src={`https://collegemarketplace.onrender.com/uploads/${lastViewed.image}`}
+                  alt={lastViewed.title}
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src =
+                      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='100' viewBox='0 0 150 100'%3E%3Crect width='150' height='100' fill='%23e2e8f0'/%3E%3Ctext x='75' y='55' fill='%23717c8a' font-family='Arial,sans-serif' font-size='14' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
+                  }}
+                  className="h-24 w-24 rounded-[1.5rem] object-cover"
+                />
+                <div>
+                  <h3 className="text-lg font-semibold text-slate-900">{lastViewed.title}</h3>
+                  <p className="mt-1 text-sm text-slate-500">₹{lastViewed.price}</p>
+                </div>
+              </div>
+            </div>
+          )}
 
-<p>₹ {product.price}</p>
-
-<p>{product.category}</p>
-
-<p>{product.description}</p>
-
-
-
-<h2>Recommended for you</h2>
-
-
-<div className="products-container">
-  {recommended.map((item) => (
-    
-    <Link
-      key={item._id}
-      to={`/product/${item._id}`}
-      onClick={() => handleClick(item)}
-      style={{ textDecoration: "none", color: "black" }}
-    >
-
-      <div className="product-card">
-
-        <img
-          src={`https://collegemarketplace.onrender.com/uploads/${item.image}`}
-          alt=""
-          onError={(e) => {
-            e.currentTarget.onerror = null;
-            e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='100' viewBox='0 0 150 100'%3E%3Crect width='150' height='100' fill='%23e2e8f0'/%3E%3Ctext x='75' y='55' fill='%23717c8a' font-family='Arial,sans-serif' font-size='14' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
-          }}
-          width="150"
-        />
-
-        <h4>{item.title}</h4>
-
-        <p>₹{item.price}</p>
-
+          {searchBased.length > 0 && (
+            <div className="rounded-[2rem] bg-white p-6 shadow-xl shadow-slate-200">
+              <h2 className="mb-4 text-xl font-semibold text-slate-900">Search Related</h2>
+              <div className="space-y-4">
+                {searchBased.map((item) => (
+                  <div key={item._id} className="flex items-center gap-4 rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4">
+                    <img
+                      src={`https://collegemarketplace.onrender.com/uploads/${item.image}`}
+                      alt={item.title}
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src =
+                          "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='80' viewBox='0 0 100 80'%3E%3Crect width='100' height='80' fill='%23e2e8f0'/%3E%3Ctext x='50' y='45' fill='%23717c8a' font-family='Arial,sans-serif' font-size='12' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
+                      }}
+                      className="h-20 w-20 rounded-[1.5rem] object-cover"
+                    />
+                    <div>
+                      <h3 className="text-sm font-semibold text-slate-900">{item.title}</h3>
+                      <p className="text-sm text-slate-500">₹{item.price}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
-    </Link>
-  ))}
-</div>
-
-{/* <h2>Based on Your Search</h2> */}
-
-<div className="products-container">
-  {searchBased.map((item) => (
-    <div key={item._id} className="product-card">
-
-      <img
-        src={`https://collegemarketplace.onrender.com/uploads/${item.image}`}
-        alt=""
-        onError={(e) => {
-          e.currentTarget.onerror = null;
-          e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='100' viewBox='0 0 150 100'%3E%3Crect width='150' height='100' fill='%23e2e8f0'/%3E%3Ctext x='75' y='55' fill='%23717c8a' font-family='Arial,sans-serif' font-size='14' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
-        }}
-        width="150"
-      />
-
-      <h4>{item.title}</h4>
-
-      <p>₹{item.price}</p>
-
+      {recommended.length > 0 && (
+        <div className="rounded-[2rem] bg-white p-6 shadow-xl shadow-slate-200">
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-2xl font-semibold text-slate-900">Recommended for you</h2>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            {recommended.map((item) => (
+              <Link
+                key={item._id}
+                to={`/product/${item._id}`}
+                onClick={() => handleClick(item)}
+                className="block rounded-[1.75rem] border border-slate-200 bg-slate-50 p-4 transition hover:shadow-lg"
+              >
+                <div className="overflow-hidden rounded-[1.5rem] bg-slate-100">
+                  <img
+                    src={`https://collegemarketplace.onrender.com/uploads/${item.image}`}
+                    alt={item.title}
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src =
+                        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='180' viewBox='0 0 300 180'%3E%3Crect width='300' height='180' fill='%23e2e8f0'/%3E%3Ctext x='150' y='95' fill='%23717c8a' font-family='Arial,sans-serif' font-size='14' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
+                    }}
+                    className="h-40 w-full object-cover"
+                  />
+                </div>
+                <div className="mt-4 space-y-2">
+                  <h3 className="text-lg font-semibold text-slate-900">{item.title}</h3>
+                  <p className="text-sm text-slate-500">₹{item.price}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
-  ))}
-</div>
-
-{lastViewed && (
-  <>
-    <h2 className="text-2xl font-bold mt-6">Recently Viewed</h2>
-
-    <div className="product-card">
-
-      <img
-        src={`https://collegemarketplace.onrender.com/uploads/${lastViewed.image}`}
-        alt=""
-        onError={(e) => {
-          e.currentTarget.onerror = null;
-          e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='100' viewBox='0 0 150 100'%3E%3Crect width='150' height='100' fill='%23e2e8f0'/%3E%3Ctext x='75' y='55' fill='%23717c8a' font-family='Arial,sans-serif' font-size='14' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
-        }}
-        width="150"
-      />
-
-      <h4>{lastViewed.title}</h4>
-
-      <p>₹{lastViewed.price}</p>
-
-    </div>
-  </>
-)}
-
-</div>
+  </div>
 );
 }
 
