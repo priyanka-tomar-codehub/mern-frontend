@@ -50,7 +50,7 @@ return (
             className="w-full rounded-2xl border border-transparent bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200 sm:w-64"
           >
             <option value="">All</option>
-            <option value="Book">Books</option>
+            <option value="Books">Books</option>
             <option value="Electronics">Electronics</option>
             <option value="Laptop">Laptop</option>
             <option value="Notes">Notes</option>
@@ -68,9 +68,12 @@ return (
               <img
                 src={`https://collegemarketplace.onrender.com/uploads/${product.image}`}
                 alt={product.title}
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%23e2e8f0'/%3E%3Ctext x='200' y='130' fill='%23717c8a' font-family='Arial,sans-serif' font-size='20' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
+                }}
                 className="h-52 w-full object-cover"
               />
-              <p>{product.image}</p>
             </div>
 
             <div className="mt-5 space-y-4">

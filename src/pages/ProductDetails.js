@@ -56,6 +56,10 @@ return (
 <img 
 src={`https://collegemarketplace.onrender.com/uploads/${product.image}`} 
 alt=""
+onError={(e) => {
+  e.currentTarget.onerror = null;
+  e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%23e2e8f0'/%3E%3Ctext x='200' y='130' fill='%23717c8a' font-family='Arial,sans-serif' font-size='20' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
+}}
 className="product-image"
 />
 
@@ -87,6 +91,10 @@ className="product-image"
         <img
           src={`https://collegemarketplace.onrender.com/uploads/${item.image}`}
           alt=""
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='100' viewBox='0 0 150 100'%3E%3Crect width='150' height='100' fill='%23e2e8f0'/%3E%3Ctext x='75' y='55' fill='%23717c8a' font-family='Arial,sans-serif' font-size='14' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
+          }}
           width="150"
         />
 
@@ -109,6 +117,10 @@ className="product-image"
       <img
         src={`https://collegemarketplace.onrender.com/uploads/${item.image}`}
         alt=""
+        onError={(e) => {
+          e.currentTarget.onerror = null;
+          e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='100' viewBox='0 0 150 100'%3E%3Crect width='150' height='100' fill='%23e2e8f0'/%3E%3Ctext x='75' y='55' fill='%23717c8a' font-family='Arial,sans-serif' font-size='14' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
+        }}
         width="150"
       />
 
@@ -129,6 +141,10 @@ className="product-image"
       <img
         src={`https://collegemarketplace.onrender.com/uploads/${lastViewed.image}`}
         alt=""
+        onError={(e) => {
+          e.currentTarget.onerror = null;
+          e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='100' viewBox='0 0 150 100'%3E%3Crect width='150' height='100' fill='%23e2e8f0'/%3E%3Ctext x='75' y='55' fill='%23717c8a' font-family='Arial,sans-serif' font-size='14' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
+        }}
         width="150"
       />
 
