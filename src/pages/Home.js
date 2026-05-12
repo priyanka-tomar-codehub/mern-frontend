@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-
+const getImageUrl = (filename) => {
+  if (!filename) return null;
+  return `https://collegemarketplace.onrender.com/uploads/${encodeURIComponent(filename)}`;
+};
 
 function Home() {
 
@@ -66,8 +69,12 @@ return (
           >
             <div className="overflow-hidden rounded-[1.75rem] bg-slate-100">
               <img
-                src={`https://collegemarketplace.onrender.com/uploads/${product.image}`}
-                alt={product.title}
+                src={
+                  product.image
+                    ? getImageUrl(product.image)
+                    : "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%23e2e8f0'/%3E%3Ctext x='200' y='130' fill='%23717c8a' font-family='Arial,sans-serif' font-size='20' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E"
+                }
+                alt={product.title || "Product image"}
                 onError={(e) => {
                   e.currentTarget.onerror = null;
                   e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%23e2e8f0'/%3E%3Ctext x='200' y='130' fill='%23717c8a' font-family='Arial,sans-serif' font-size='20' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
