@@ -62,6 +62,12 @@ function Navbar() {
     navigate(`/product/${product._id}`);
   };
 
+  const getImageUrl = (image) => {
+    if (!image) return null;
+    if (image.startsWith("http")) return image;
+    return `https://collegemarketplace.onrender.com/uploads/${encodeURIComponent(image)}`;
+  };
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -160,7 +166,7 @@ function Navbar() {
                     className="flex items-center gap-3 px-4 py-3 hover:bg-slate-50 cursor-pointer border-b border-slate-100 last:border-b-0"
                   >
                     <img
-                      src={`https://collegemarketplace.onrender.com/uploads/${product.image}`}
+                      src={getImageUrl(product.image)}
                       alt={product.title}
                       onError={(e) => {
                         e.currentTarget.onerror = null;
@@ -185,15 +191,14 @@ function Navbar() {
        
 
         <div className="flex items-center gap-3 md:gap-4">
-          <button
-            type="button"
-            className="hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 md:inline-flex"
-          >
-            Cart
-            <span className="ml-2 inline-flex h-6 min-w-[1.5rem] items-center justify-center rounded-full bg-indigo-600 px-2 text-xs font-semibold text-white">
-              3
-            </span>
-          </button>
+          <Link to="/myorders">
+            <button
+              type="button"
+              className="hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 md:inline-flex"
+            >
+              My Orders
+            </button>
+          </Link>
 
           <button
             onClick={logout}
@@ -232,11 +237,11 @@ function Navbar() {
             My Products
           </Link>
           <Link
-            to="/add"
+            to="/myorders"
             onClick={() => setMenuOpen(false)}
             className="block rounded-2xl px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
           >
-            Add Product
+            My Orders
           </Link>
           <button
             onClick={() => {

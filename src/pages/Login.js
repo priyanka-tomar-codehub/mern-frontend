@@ -15,28 +15,28 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-const handleSubmit = async (e)=>{
-e.preventDefault();
-try{
-const res = await axios.post(
-"https://collegemarketplace.onrender.com/api/auth/login",
-{
-email,
-password
-}
-);
-toast.success("Login Successful");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        "https://collegemarketplace.onrender.com/api/auth/login",
+        {
+          email,
+          password
+        }
+      );
+      toast.success("Login Successful");
 
-localStorage.setItem("token",res.data.token);
-
-
-navigate("/");
-}
-catch (err) {
-    toast.error("Invalid Credentials");
-}
-};
+      localStorage.setItem("token", res.data.token);
+      navigate("/", { replace: true });
+    } catch (err) {
+      toast.error("Invalid Credentials");
+      setLoading(false);
+    }
+  };
 
 return (
   <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-800 px-4 py-12 text-slate-900">
@@ -94,9 +94,10 @@ return (
 
           <button
             type="submit"
-            className="w-full rounded-3xl bg-gradient-to-r from-indigo-600 to-sky-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-300 transition hover:scale-[1.01] hover:shadow-xl"
+            disabled={loading}
+            className={`w-full rounded-3xl px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-300 transition hover:scale-[1.01] hover:shadow-xl ${loading ? 'bg-slate-400 cursor-not-allowed hover:scale-100' : 'bg-gradient-to-r from-indigo-600 to-sky-600 hover:bg-gradient-to-r hover:from-indigo-700 hover:to-sky-700'}`}
           >
-            Login
+            {loading ? "Signing in..." : "Login"}
           </button>
         </form>
 

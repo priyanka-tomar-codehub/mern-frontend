@@ -2,12 +2,20 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import {Link} from "react-router-dom";
+import { toast } from "react-toastify";
+
+const getImageUrl = (image) => {
+  if (!image) return null;
+  if (image.startsWith("http")) return image;
+  return `https://collegemarketplace.onrender.com/uploads/${encodeURIComponent(image)}`;
+};
 
 function ProductDetails() {
 
 const { id } = useParams();
 const [product,setProduct] = useState({});
 const [recommended,setRecommended] = useState([]);
+const [message, setMessage] = useState("");
 
 
 useEffect(() => {
@@ -36,6 +44,22 @@ useEffect(() =>{
 const handleClick = (product) => {
   localStorage.setItem("lastViewed", JSON.stringify(product));
 };
+
+const handleBuyNow = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    await axios.post("https://collegemarketplace.onrender.com/api/orders", {
+      productId: product._id,
+      message
+    }, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    toast.success("Order placed! Contact seller for payment and delivery.");
+  } catch (error) {
+    toast.error("Failed to place order");
+  }
+};
+
 const lastViewed = JSON.parse(localStorage.getItem("lastViewed"));
 
 const lastSearch = localStorage.getItem("lastSearch");
@@ -56,7 +80,7 @@ return (
         <div className="rounded-[2rem] bg-white p-6 shadow-xl shadow-slate-200">
           <div className="overflow-hidden rounded-[1.75rem] bg-slate-100">
             <img
-              src={`https://collegemarketplace.onrender.com/uploads/${product.image}`}
+              src={getImageUrl(product.image)}
               alt={product.title || "Product image"}
               onError={(e) => {
                 e.currentTarget.onerror = null;
@@ -82,6 +106,23 @@ return (
               <h2 className="mb-3 text-xl font-semibold text-slate-900">Product Description</h2>
               <p className="text-slate-600">{product.description || "No description available."}</p>
             </div>
+
+            <div className="rounded-[1.5rem] bg-slate-50 p-6">
+              <h2 className="mb-3 text-xl font-semibold text-slate-900">Buy Now</h2>
+              <textarea
+                placeholder="Optional message to seller..."
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200 mb-4"
+                rows="3"
+              />
+              <button
+                onClick={handleBuyNow}
+                className="w-full rounded-2xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:bg-indigo-700"
+              >
+                Contact Seller & Buy Now
+              </button>
+            </div>
           </div>
         </div>
 
@@ -91,7 +132,7 @@ return (
               <h2 className="mb-4 text-xl font-semibold text-slate-900">Recently Viewed</h2>
               <div className="flex items-start gap-4">
                 <img
-                  src={`https://collegemarketplace.onrender.com/uploads/${lastViewed.image}`}
+                  src={getImageUrl(lastViewed.image)}
                   alt={lastViewed.title}
                   onError={(e) => {
                     e.currentTarget.onerror = null;
@@ -115,7 +156,7 @@ return (
                 {searchBased.map((item) => (
                   <div key={item._id} className="flex items-center gap-4 rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4">
                     <img
-                      src={`https://collegemarketplace.onrender.com/uploads/${item.image}`}
+                      src={getImageUrl(item.image)}
                       alt={item.title}
                       onError={(e) => {
                         e.currentTarget.onerror = null;
@@ -151,7 +192,7 @@ return (
               >
                 <div className="overflow-hidden rounded-[1.5rem] bg-slate-100">
                   <img
-                    src={`https://collegemarketplace.onrender.com/uploads/${item.image}`}
+                    src={getImageUrl(item.image)}
                     alt={item.title}
                     onError={(e) => {
                       e.currentTarget.onerror = null;

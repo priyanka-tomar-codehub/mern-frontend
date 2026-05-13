@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const getImageUrl = (filename) => {
-  if (!filename) return null;
-  return `https://collegemarketplace.onrender.com/uploads/${encodeURIComponent(filename)}`;
+const getImageUrl = (image) => {
+  if (!image) return null;
+  if (image.startsWith("http")) return image;
+  return `https://collegemarketplace.onrender.com/uploads/${encodeURIComponent(image)}`;
 };
 
 function Home() {

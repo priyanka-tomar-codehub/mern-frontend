@@ -11,6 +11,7 @@ import AddProduct from "./pages/AddProduct";
 import ProductDetails from "./pages/ProductDetails";
 import MyProducts from "./pages/MyProducts";
 import EditProduct from "./pages/EditProduct";
+import MyOrders from "./pages/MyOrders";
 import Navbar from "./components/Navbar";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
          <Route path="/add" element={token?<AddProduct/> :<Navigate to="/login"/>}/>
          <Route path="/product/:id" element={token ?<ProductDetails />:<Navigate to="/login"/>} />
          <Route path="/my-products" element={token ?<MyProducts />:<Navigate to="/login"/>} />
+         <Route path="/myorders" element={token ?<MyOrders />:<Navigate to="/login"/>} />
          <Route  path="/edit/:id" element={<EditProduct/>} />
           
          
