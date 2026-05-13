@@ -46,17 +46,32 @@ const handleClick = (product) => {
 };
 
 const handleBuyNow = async () => {
+  if (!product?._id) {
+    toast.error("Product not loaded yet.");
+    return;
+  }
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    toast.error("You must be logged in to place an order.");
+    return;
+  }
+
   try {
-    const token = localStorage.getItem("token");
-    await axios.post("https://collegemarketplace.onrender.com/api/orders", {
-      productId: product._id,
-      message
-    }, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
+    await axios.post(
+      "https://collegemarketplace.onrender.com/api/orders",
+      {
+        productId: product._id,
+        message,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     toast.success("Order placed! Contact seller for payment and delivery.");
   } catch (error) {
-    toast.error("Failed to place order");
+    console.error("Order creation failed:", error.response?.data || error.message);
+    toast.error(error.response?.data?.message || "Failed to place order");
   }
 };
 
