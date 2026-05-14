@@ -68,7 +68,13 @@ const handleBuyNow = async () => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    toast.success("Order placed! Contact seller for payment and delivery.");
+   
+    toast.success("Order placed successfully!");
+
+    window.open(
+      `https://wa.me/91${product.phone}`,
+      "_blank"
+    );
   } catch (error) {
     console.error("Order creation failed:", error.response?.data || error.message);
     toast.error(error.response?.data?.message || "Failed to place order");

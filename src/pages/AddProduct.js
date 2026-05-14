@@ -10,6 +10,7 @@ function AddProduct() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
+  const [phone, setPhone] = useState("");
   const [image, setImage] = useState(null);
 
   const handleSubmit = async (e) => {
@@ -22,6 +23,7 @@ function AddProduct() {
       formData.append("description", description);
       formData.append("price", price);
       formData.append("category", category);
+      formData.append("phone", phone);
       formData.append("image", image);
 
       await axios.post("https://collegemarketplace.onrender.com/api/products", formData, {
@@ -94,6 +96,19 @@ function AddProduct() {
               />
             </div>
           </div>
+
+          <div>
+              <label htmlFor="phone" className="mb-2 block text-sm font-medium text-slate-700">Contact Number</label>
+              <input
+                id="phone"
+                type="text"
+                placeholder="Enter contact number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200"
+              />
+            </div>
+          
 
           <div>
             <label htmlFor="image" className="mb-2 block text-sm font-medium text-slate-700">Product Image</label>
