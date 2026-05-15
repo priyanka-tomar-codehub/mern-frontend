@@ -80,7 +80,7 @@ function MyProducts() {
                       e.currentTarget.src =
                         "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23e2e8f0'/%3E%3Ctext x='150' y='110' fill='%23717c8a' font-family='Arial,sans-serif' font-size='16' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
                     }}
-                    className="h-48 w-full object-cover"
+                    className="h-48 w-full object-contain bg-white"
                   />
                 </div>
 

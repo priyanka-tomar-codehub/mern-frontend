@@ -108,7 +108,7 @@ return (
                 e.currentTarget.src =
                   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'%3E%3Crect width='800' height='500' fill='%23e2e8f0'/%3E%3Ctext x='400' y='260' fill='%23717c8a' font-family='Arial,sans-serif' font-size='24' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
               }}
-              className="h-[400px] w-full object-cover"
+              className="h-[400px] w-full object-contain bg-white"
             />
           </div>
 
