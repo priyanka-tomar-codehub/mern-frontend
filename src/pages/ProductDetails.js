@@ -118,9 +118,20 @@ return (
                 <h1 className="text-3xl font-extrabold text-slate-900">{product.title}</h1>
                 <p className="mt-2 text-sm text-slate-500 uppercase tracking-[0.24em]">{product.category || "Uncategorized"}</p>
               </div>
-              <span className="inline-flex rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
+              {/* <span className="inline-flex rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
                 ₹ {product.price}
-              </span>
+              </span> */}
+              <div className="flex gap-3 items-center">
+                {product.isSold && (
+                  <span className="rounded-full bg-red-100 px-4 py-2 text-sm font-semibold text-red-600">
+                    SOLD
+                  </span>
+                )}
+
+                <span className="inline-flex rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
+                  ₹ {product.price}
+                </span>
+              </div>
             </div>
 
             <div className="rounded-[1.5rem] bg-slate-50 p-6">
@@ -137,12 +148,24 @@ return (
                 className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200 mb-4"
                 rows="3"
               />
-              <button
+              {/* <button
                 onClick={handleBuyNow}
                 className="w-full rounded-2xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:bg-indigo-700"
               >
                 Contact Seller & Buy Now
-              </button>
+              </button> */}
+              <button
+                onClick={handleBuyNow}
+                disabled={product.isSold}
+                className={`w-full rounded-2xl px-4 py-3 text-sm font-semibold text-white shadow-lg transition
+                ${
+                  product.isSold
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-indigo-600 hover:bg-indigo-700 shadow-indigo-200"
+                }`}
+              >
+                {product.isSold ? "Product Sold" : "Contact Seller & Buy Now"}
+            </button>
             </div>
           </div>
         </div>

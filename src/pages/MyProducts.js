@@ -46,6 +46,7 @@ function MyProducts() {
     const token = localStorage.getItem("token");
     await axios.put(`https://collegemarketplace.onrender.com/api/orders/${id}`, { status }, {
       headers: { Authorization: `Bearer ${token}` }
+      
     });
     fetchOrders();
   };
@@ -118,7 +119,8 @@ function MyProducts() {
                 <div className="flex items-center justify-between">
                   <div>
                     <h2 className="text-xl font-semibold text-slate-900">{order.product.title}</h2>
-                    <p className="text-sm text-slate-500">Buyer: {order.buyer.name || order.buyer.email}</p>
+                    <p className="text-sm text-slate-500">Buyer: {order.buyer.name}</p>
+                    <p className="text-sm text-slate-500">Email: {order.buyer.email}</p>
                     <p className="text-sm text-slate-500">Status: {order.status}</p>
                     <p className="text-lg font-semibold text-indigo-600">₹{order.price}</p>
                   </div>
