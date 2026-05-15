@@ -15,6 +15,7 @@ function ProductDetails() {
 const { id } = useParams();
 const [product,setProduct] = useState({});
 const [recommended,setRecommended] = useState([]);
+const [recentlyViewed, setRecentlyViewed] = useState([]);
 const [message, setMessage] = useState("");
 
 
@@ -40,10 +41,25 @@ useEffect(() =>{
     .catch(err => console.error(err));
 }
 },[product]);
+useEffect(() => {
+  if (product?._id) {
+    let viewed = JSON.parse(localStorage.getItem("recentlyViewed")) || [];
 
-const handleClick = (product) => {
-  localStorage.setItem("lastViewed", JSON.stringify(product));
-};
+    viewed = viewed.filter((item) => item._id !== product._id);
+
+    viewed.unshift(product);
+
+    viewed = viewed.slice(0, 5);
+
+    localStorage.setItem("recentlyViewed", JSON.stringify(viewed));
+
+    setRecentlyViewed(viewed);
+  }
+}, [product]);
+
+// const handleClick = (product) => {
+//   localStorage.setItem("lastViewed", JSON.stringify(product));
+// };
 
 const handleBuyNow = async () => {
   if (!product?._id) {
@@ -81,7 +97,7 @@ const handleBuyNow = async () => {
   }
 };
 
-const lastViewed = JSON.parse(localStorage.getItem("lastViewed"));
+// const lastViewed = JSON.parse(localStorage.getItem("lastViewed"));
 
 const lastSearch = localStorage.getItem("lastSearch");
 
@@ -171,13 +187,13 @@ return (
         </div>
 
         <div className="space-y-6">
-          {lastViewed && (
+          {recentlyViewed && (
             <div className="rounded-[2rem] bg-white p-6 shadow-xl shadow-slate-200">
               <h2 className="mb-4 text-xl font-semibold text-slate-900">Recently Viewed</h2>
               <div className="flex items-start gap-4">
                 <img
-                  src={getImageUrl(lastViewed.image)}
-                  alt={lastViewed.title}
+                  src={getImageUrl(recentlyViewed.image)}
+                  alt={recentlyViewed.title}
                   onError={(e) => {
                     e.currentTarget.onerror = null;
                     e.currentTarget.src =
@@ -186,8 +202,8 @@ return (
                   className="h-24 w-24 rounded-[1.5rem] object-cover"
                 />
                 <div>
-                  <h3 className="text-lg font-semibold text-slate-900">{lastViewed.title}</h3>
-                  <p className="mt-1 text-sm text-slate-500">₹{lastViewed.price}</p>
+                  <h3 className="text-lg font-semibold text-slate-900">{recentlyViewed.title}</h3>
+                  <p className="mt-1 text-sm text-slate-500">₹{recentlyViewed.price}</p>
                 </div>
               </div>
             </div>
@@ -231,7 +247,7 @@ return (
               <Link
                 key={item._id}
                 to={`/product/${item._id}`}
-                onClick={() => handleClick(item)}
+                // onClick={() => handleClick(item)}
                 className="block rounded-[1.75rem] border border-slate-200 bg-slate-50 p-4 transition hover:shadow-lg"
               >
                 <div className="overflow-hidden rounded-[1.5rem] bg-slate-100">
@@ -243,7 +259,7 @@ return (
                       e.currentTarget.src =
                         "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='180' viewBox='0 0 300 180'%3E%3Crect width='300' height='180' fill='%23e2e8f0'/%3E%3Ctext x='150' y='95' fill='%23717c8a' font-family='Arial,sans-serif' font-size='14' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
                     }}
-                    className="h-40 w-full object-cover"
+                    className="h-40 w-full object-contain bg-white"
                   />
                 </div>
                 <div className="mt-4 space-y-2">
