@@ -187,27 +187,44 @@ return (
         </div>
 
         <div className="space-y-6">
-          {recentlyViewed && (
-            <div className="rounded-[2rem] bg-white p-6 shadow-xl shadow-slate-200">
-              <h2 className="mb-4 text-xl font-semibold text-slate-900">Recently Viewed</h2>
-              <div className="flex items-start gap-4">
-                <img
-                  src={getImageUrl(recentlyViewed.image)}
-                  alt={recentlyViewed.title}
-                  onError={(e) => {
-                    e.currentTarget.onerror = null;
-                    e.currentTarget.src =
-                      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='100' viewBox='0 0 150 100'%3E%3Crect width='150' height='100' fill='%23e2e8f0'/%3E%3Ctext x='75' y='55' fill='%23717c8a' font-family='Arial,sans-serif' font-size='14' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
-                  }}
-                  className="h-24 w-24 rounded-[1.5rem] object-cover"
-                />
-                <div>
-                  <h3 className="text-lg font-semibold text-slate-900">{recentlyViewed.title}</h3>
-                  <p className="mt-1 text-sm text-slate-500">₹{recentlyViewed.price}</p>
-                </div>
+          {recentlyViewed.length > 0 && (
+  <div className="rounded-[2rem] bg-white p-6 shadow-xl shadow-slate-200">
+    <h2 className="mb-4 text-xl font-semibold text-slate-900">
+      Recently Viewed
+    </h2>
+
+    <div className="space-y-4">
+      {recentlyViewed.map((item) => (
+        <Link
+          key={item._id}
+          to={`/product/${item._id}`}
+          className="flex items-start gap-4"
+        >
+          <img
+            src={getImageUrl(item.image)}
+            alt={item.title}
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src =
+                "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='100' viewBox='0 0 150 100'%3E%3Crect width='150' height='100' fill='%23e2e8f0'/%3E%3Ctext x='75' y='55' fill='%23717c8a' font-family='Arial,sans-serif' font-size='14' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
+            }}
+            className="h-24 w-24 rounded-[1.5rem] object-cover"
+          />
+
+              <div>
+                <h3 className="text-lg font-semibold text-slate-900">
+                  {item.title}
+                </h3>
+
+                <p className="mt-1 text-sm text-slate-500">
+                  ₹{item.price}
+                </p>
               </div>
-            </div>
-          )}
+            </Link>
+          ))}
+    </div>
+  </div>
+)}
 
           {searchBased.length > 0 && (
             <div className="rounded-[2rem] bg-white p-6 shadow-xl shadow-slate-200">
