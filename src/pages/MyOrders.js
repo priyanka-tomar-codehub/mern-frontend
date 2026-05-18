@@ -25,8 +25,8 @@ function MyOrders() {
             <div key={order._id} className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-xl font-semibold text-slate-900">{order.product.title}</h2>
-                  <p className="text-sm text-slate-500">Seller: {order.seller.name || order.seller.email}</p>
+                  <h2 className="text-xl font-semibold text-slate-900">{order?.product?.title  || "Product Deleted"}</h2>
+                  <p className="text-sm text-slate-500">Seller: {order?.seller?.name || order?.seller?.email || "Unknown Seller"}</p>
                   <p className="text-sm text-slate-500">Status: {order.status}</p>
                   <p className="text-lg font-semibold text-indigo-600">₹{order.price}</p>
                 </div>
