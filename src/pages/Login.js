@@ -46,6 +46,13 @@ return (
           <span className="inline-flex rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-sky-200">
             Welcome Back
           </span>
+          <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl">
+            <img
+              src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80"
+              alt="Amity University campus"
+              className="h-56 w-full object-cover"
+            />
+          </div>
           <h1 className="text-4xl font-extrabold tracking-tight">Secure access for your marketplace</h1>
           <p className="max-w-sm text-sm leading-7 text-slate-200">
             Log in to manage products, track sales, and publish listings with confidence.
