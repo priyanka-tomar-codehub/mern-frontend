@@ -19,7 +19,7 @@ function Register() {
 const handleSubmit = async (e)=>{
 e.preventDefault();
 
-if (!email.toLowerCase().endsWith("@amity.edu")) {
+if (!email.toLowerCase().endsWith("amity.edu")) {
   alert("Only Amity students can register");
   return;
 }
