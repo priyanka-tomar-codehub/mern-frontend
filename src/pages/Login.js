@@ -19,6 +19,12 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!email.toLowerCase().endsWith("@amity.edu")) {
+      alert("Only Amity students can register");
+      return;
+  }
+
     setLoading(true);
     try {
       const res = await axios.post(
@@ -48,7 +54,7 @@ return (
           </span>
           <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl">
             <img
-              src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80"
+              src="amity-login.jpg"
               alt="Amity University campus"
               className="h-56 w-full object-cover"
             />
@@ -78,7 +84,7 @@ return (
             <input
               id="email"
               type="email"
-              placeholder="you@example.com"
+              placeholder="yourname@amity.edu"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200"
