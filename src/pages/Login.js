@@ -37,7 +37,10 @@ function Login() {
       toast.success("Login Successful");
 
       localStorage.setItem("token", res.data.token);
-      navigate("/", { replace: true });
+      // navigate("/", { replace: true });
+      setLoading(false);
+
+      window.location.href = "/";
     } catch (err) {
       toast.error("Invalid Credentials");
       setLoading(false);
@@ -52,6 +55,9 @@ return (
           <span className="inline-flex rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-sky-200">
             Welcome Back
           </span>
+          <h1 className="mt-6 text-4xl font-bold text-white">
+            AI-Powered College Marketplace
+          </h1>
           <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl">
             <img
               src="amity-login.jpg"
@@ -73,9 +79,9 @@ return (
 
       <div className="flex-1 px-8 py-10 sm:px-12 sm:py-16">
         <div className="mb-8 text-center lg:text-left">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-600">Seller Login</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-600">Student Login</p>
           <h2 className="mt-4 text-3xl font-extrabold text-slate-900">Welcome back, let's get you signed in</h2>
-          <p className="mt-3 text-sm text-slate-500">Enter your email and password to access your seller dashboard.</p>
+          <p className="mt-3 text-sm text-slate-500">Enter your email and password to access your student dashboard.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -84,7 +90,7 @@ return (
             <input
               id="email"
               type="email"
-              placeholder="yourname@amity.edu"
+              placeholder="Enter your Amity email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200"

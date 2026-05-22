@@ -117,10 +117,7 @@ function Navbar() {
             </Link>
           </div>
 
-          <div className="hidden rounded-full bg-slate-100 px-3 py-2 text-sm text-slate-600 md:flex md:items-center">
-            <span className="mr-2 font-medium text-slate-900">Shop</span>
-            <span className="rounded-full bg-white px-2 py-1 text-xs font-semibold text-indigo-600 shadow-sm">Market</span>
-          </div>
+          
         </div>
 
          <div className="hidden flex-1 items-center justify-center md:flex">
