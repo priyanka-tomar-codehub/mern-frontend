@@ -13,6 +13,30 @@ function AddProduct() {
   const [phone, setPhone] = useState("");
   const [image, setImage] = useState(null);
 
+  const handleGenerateDescription = async () => {
+  if (!title.trim()) {
+    toast.error("Please enter product title first!");
+    return;
+  }
+
+  try {
+    const response = await axios.post(
+      "https://collegemarketplace.onrender.com/api/ai/generate-description",
+      {
+        title,
+        description,
+      }
+    );
+
+    setDescription(response.data.description);
+
+    toast.success("AI description generated ✨");
+  } catch (error) {
+    console.error(error);
+    toast.error("Failed to generate AI description");
+  }
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -61,13 +85,22 @@ function AddProduct() {
           </div>
 
           <div>
-            <label htmlFor="description" className="mb-2 block text-sm font-medium text-slate-700">Description</label>
-            <input
+            <div>         
+              <label htmlFor="description" className="mb-2 block text-sm font-medium text-slate-700">Description</label>
+              <button type="button"
+              onClick={handleGenerateDescription}
+              className="mb-2 rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:bg-indigo-700"
+              >
+              Generate with AI
+              </button>
+            </div>
+            <textarea
               id="description"
               type="text"
               placeholder="Enter product description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              rows="5"
               className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200"
             />
           </div>
